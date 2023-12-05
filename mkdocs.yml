@@ -1,0 +1,26 @@
+site_name: HOUARI Abdelmouhssine's Documentation
+site_name: Documentation
+site_url: http://doc.5.196.93.233.nip.io/
+site_description: Project documentation with Markdown.
+site_author: HOUARI ABDELMOUHSSINE
+dev_addr: 192.168.0.1:8000
+repo_url: https://github.com/HOUARIMouhssine/LAB.git
+
+theme:
+  #name: mkdocs
+  #locale: fr
+  #analytics: {gtag: 'G-274394082'}
+  #highlightjs: true
+  #hljs_languages:
+  #  - yaml
+  #  - django
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - rust
+nav:
+  - Home: index.md
+  - DNS: dns.md
+extra_css:
+    - css/extra.css
