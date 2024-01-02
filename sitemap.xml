@@ -10,4 +10,14 @@
          <lastmod>2024-01-02</lastmod>
          <changefreq>daily</changefreq>
     </url>
+    <url>
+         <loc>http://doc.5.196.93.233.nip.io/doc/</loc>
+         <lastmod>2024-01-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://doc.5.196.93.233.nip.io/vbox/</loc>
+         <lastmod>2024-01-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
 </urlset>
