@@ -21,6 +21,8 @@ theme:
     - rust
 nav:
   - Home: index.md
+  - Documentation: doc.md
   - DNS: dns.md
+  - virtualbox: vbox.md
     #extra_css:
     #- css/extra.css
