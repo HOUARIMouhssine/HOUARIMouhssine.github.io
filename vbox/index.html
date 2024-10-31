@@ -61,8 +61,22 @@
     <li class="toctree-l2"><a class="reference internal" href="#configuration-de-haproxy">Configuration de Haproxy</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#docker-compose-file">Docker-compose file</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#reset-the-password">Reset the password:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#restart-dhcp-server">Restart DHCP Server</a>
+    </li>
+        </ul>
     </li>
     </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vagrant/">Vagrant</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../nfs/">NFS</a>
                 </li>
               </ul>
       </div>
@@ -93,8 +107,11 @@
 <p>Pour toute la documentation, rendre visite à  <a href="http://doc.5.196.93.233.nip.io/">mkdocs.org</a>.
 VboxManage est la partie CLI pour Oracle VM virtualbox, il permet de crée des interfaces réseaux, de les configurer, démarrer ou l'arreter
 Dans notre example, il sera utiliser pour créer une interface réseau sur le réseau local dont lequel on va écouter</p>
+<p>Pour spécifier le machine folder des VMs via VBoxManage 
+<code>VBoxManage setproperty machinefolder /data/virtualbox/VM</code></p>
 <h2 id="creation-une-inteface">Création une inteface</h2>
-<pre><code>VBoxManage hostonlyif ipconfig vboxnet0 --ip=192.168.0.1 --netmask=255.255.252.0
+<pre><code>vboxmanage hostonlyif create
+VBoxManage hostonlyif ipconfig vboxnet0 --ip=192.168.0.1 --netmask=255.255.252.0
 </code></pre>
 <p>Cette inteface fait partie de la zone dns <strong>ahouari</strong></p>
 <h2 id="configuration-de-haproxy">Configuration de Haproxy</h2>
@@ -154,11 +171,17 @@ services:
 <p>Pour supprimer l'image docker </p>
 <pre><code>docker-compose -f /data/docker-compose/phpvbox.yaml down
 </code></pre>
+<h3 id="reset-the-password">Reset the password:</h3>
+<p>Si on veut récupérer le mot de passe de l'utilisateur admin; il faut se connecter sur le container du docker qui est phpvbox et renommer le fichier recovery.php-disabled vers recovery.php </p>
+<p>Aprés il faut rédemmarer le service : <code>vboxweb-service</code></p>
+<h3 id="restart-dhcp-server">Restart DHCP Server</h3>
+<p>après avoir choisi le serveur dhcp via l'interface virtualbox, et des fois, il faut le rédemarrer pour prendre en compte le nouveau réseau , pour cela il faut lancer : <code>VBoxManage dhcpserver restart  --interface=vboxnet1</code></p>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
         <a href="../dns/" class="btn btn-neutral float-left" title="DNS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../vagrant/" class="btn btn-neutral float-right" title="Vagrant">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -187,6 +210,8 @@ services:
     
       <span><a href="../dns/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../vagrant/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -54,15 +54,23 @@
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#explication-fichier-etcnamedconf">Explication fichier /etc/named.conf</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
+    <li class="toctree-l2"><a class="reference internal" href="#explication-de-fichier-varnamedahouaridb">Explication de fichier **/var/named/ahouari.db</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
+    <li class="toctree-l2"><a class="reference internal" href="#explication-de-fichier-varnamed0168192db">Explication de fichier ** /var/named/0.168.192.db **</a>
     </li>
     </ul>
                 </li>
               </ul>
               <ul>
                 <li class="toctree-l1"><a class="reference internal" href="../vbox/">Virtualbox</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vagrant/">Vagrant</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../nfs/">NFS</a>
                 </li>
               </ul>
       </div>
@@ -145,19 +153,26 @@ zone &quot;0.168.192.in-addr.arpa&quot; {
 </li>
 <li>les autres machines dans le réseau peuvent spécifier l'adresse ip de ce dns serveur afin de faire des requêtes DNS</li>
 </ul>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+<h3 id="explication-de-fichier-varnamedahouaridb">Explication de fichier **/var/named/ahouari.db</h3>
+<pre><code>$ORIGIN .
+$TTL 10800      ; 3 hours
+ahouari                 IN SOA  ah200.ahouari. admin.ah200.ahouari. (
+                                2013022757 ; serial
+                                3600       ; refresh (1 hour)
+                                3600       ; retry (1 hour)
+                                604800     ; expire (1 week)
+                                38400      ; minimum (10 hours 40 minutes)
+                                )
+                        NS      ah200.ahouari.
+$ORIGIN ahouari.
+ah200                   A       192.168.0.1
+ah201                   A       192.168.0.2
+ah100                   A       192.168.0.10
+ah101                   A       192.168.0.11
+ah102                   A       192.168.0.12
 </code></pre>
+<h3 id="explication-de-fichier-varnamed0168192db">Explication de fichier ** /var/named/0.168.192.db **</h3>
+<p>``` </p>
               
             </div>
           </div><footer>

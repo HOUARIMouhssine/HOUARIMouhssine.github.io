@@ -2,22 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://doc.5.196.93.233.nip.io/</loc>
-         <lastmod>2024-01-02</lastmod>
+         <lastmod>2024-10-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://doc.5.196.93.233.nip.io/dns/</loc>
-         <lastmod>2024-01-02</lastmod>
+         <lastmod>2024-10-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://doc.5.196.93.233.nip.io/doc/</loc>
-         <lastmod>2024-01-02</lastmod>
+         <lastmod>2024-10-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://doc.5.196.93.233.nip.io/nfs/</loc>
+         <lastmod>2024-10-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://doc.5.196.93.233.nip.io/rook-ceph/</loc>
+         <lastmod>2024-10-31</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://doc.5.196.93.233.nip.io/vagrant/</loc>
+         <lastmod>2024-10-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://doc.5.196.93.233.nip.io/vbox/</loc>
-         <lastmod>2024-01-02</lastmod>
+         <lastmod>2024-10-31</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
