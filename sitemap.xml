@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/dns/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/dns/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/doc/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/doc/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/nfs/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/nfs/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/rook-ceph/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/rook-ceph/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/vagrant/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/vagrant/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://doc.5.196.93.233.nip.io/vbox/</loc>
-         <lastmod>2024-10-31</lastmod>
+         <loc>https://doc.ahouari-tech.fr/vbox/</loc>
+         <lastmod>2025-05-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
