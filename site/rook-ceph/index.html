@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="HOUARI ABDELMOUHSSINE" /><link rel="canonical" href="https://doc.ahouari-tech.fr/rook-ceph/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>ROOK - Documentation</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "ROOK";
+        var mkdocs_page_input_path = "rook-ceph.md";
+        var mkdocs_page_url = "/rook-ceph/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../doc/">Documentation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../dns/">DNS</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vbox/">Virtualbox</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../vagrant/">Vagrant</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../nfs/">NFS</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">ROOK</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">ROOK</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/HOUARIMouhssine/LAB.git/edit/master/docs/rook-ceph.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="welcome-to-mkdocsnfs">Welcome to MkDocs::NFS</h1>
+<p>Pour toute la documentation, rendre visite à  <a href="http://doc.5.196.93.233.nip.io/">mkdocs.org</a>.</p>
+<p>Afin de mettre en place un cluster Ceph il faut installer les deux composants: </p>
+<ul>
+<li>Ceph Operator</li>
+<li>Ceph Cluster</li>
+</ul>
+<h1 id="rook-ceph-operator">Rook-ceph Operator</h1>
+<p>On devait installer rook-ceph operator via Helm en utilisant la commande suivante: </p>
+<p>Ceph-Operator est dédié pour faire un watch de tout le cluster ceph et c'est lui qui va installer tous les CRDs</p>
+<pre><code>helm repo add rook-release https://charts.rook.io/release
+
+helm install --create-namespace --namespace rook-ceph rook-ceph rook-release/rook-ceph -f values.yaml
+
+</code></pre>
+<p>Le fichier values.yaml contient les valeurs suivant: </p>
+<pre><code>csi:
+  enableCephfsDriver: true
+  enableRbdDriver: false
+
+</code></pre>
+<p>Maintenant , dans le namespace <strong>rook-ceph</strong> on voit le pod Operator qui est en phase Running </p>
+<pre><code>kubectl get pods -n rook-ceph
+
+rook-ceph-operator-5f4c57f467-2m6v5               1/1     Running     1 (4d16h ago)   7d23h
+</code></pre>
+<h2 id="ceph-cluster">Ceph Cluster</h2>
+<p>Avant d'installer le cluster ceph, nous devons créer des disque sur virtualbox sur nos différents VM. </p>
+<p>Nous installons cephcluster avec Helm avec l'application du fichier values.yaml comme suite: </p>
+<pre><code>helm repo add rook-release https://charts.rook.io/release
+
+helm install --create-namespace --namespace rook-ceph rook-ceph-cluster \
+
+   --set operatorNamespace=rook-ceph rook-release/rook-ceph-cluster -f values.yaml
+
+</code></pre>
+<p>Le fichier values est comme suite: </p>
+<pre><code> apiVersion: ceph.rook.io/v1
+
+ kind: CephCluster
+
+ metadata:
+
+   name: rook-ceph
+
+   namespace: rook-ceph
+
+ spec:
+
+   cephVersion:
+
+     image: quay.io/ceph/ceph:v18.2.2
+
+   cleanupPolicy:
+
+     sanitizeDisks: {}
+
+   crashCollector: {}
+
+   dashboard:
+
+     enabled: true
+
+   dataDirHostPath: /var/lib/rook
+
+   disruptionManagement: {}
+
+   external: {}
+
+   healthCheck:
+
+     daemonHealth:
+
+       mon: {}
+
+       osd: {}
+
+       status: {}
+
+   logCollector: {}
+
+   mgr:
+
+     count: 2
+
+   mon:
+
+     count: 3
+
+   monitoring: {}
+
+   storage:
+
+     deviceFilter: sdb
+
+     nodes:
+
+     - name: ah101
+
+       resources: {}
+
+     - name: ah102
+
+       resources: {}
+
+     - name: ah103
+
+       resources: {}
+
+     useAllDevices: false
+
+kind: List
+
+metadata:
+
+ resourceVersion: &quot;&quot;
+
+</code></pre>
+<h2 id="cephfilesystem">CephFileSystem</h2>
+<p>Sur mon cluster, on va utiliser une solution basé sur partage de fichier de système (FS), pour cela , il faut appliquer la CRD  <strong>Cephfilesystem</strong> qui va permettre de créer un pool qui s'appelle <strong>replicated</strong> qui sera utiliser comme la source qui va être utiliser par les OSD afin d'offire une solution de disque de type Ceph FS </p>
+<pre><code>apiVersion: v1
+items:
+- apiVersion: ceph.rook.io/v1
+  kind: CephFilesystem
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {&quot;apiVersion&quot;:&quot;ceph.rook.io/v1&quot;,&quot;kind&quot;:&quot;CephFilesystem&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;myfs&quot;,&quot;namespace&quot;:&quot;rook-ceph&quot;},&quot;spec&quot;:{&quot;dataPools&quot;:[{&quot;failureDomain&quot;:&quot;host&quot;,&quot;name&quot;:&quot;replicated&quot;,&quot;replicated&quot;:{&quot;size&quot;:3}}],&quot;metadataPool&quot;:{&quot;failureDomain&quot;:&quot;host&quot;,&quot;replicated&quot;:{&quot;size&quot;:3}},&quot;metadataServer&quot;:{&quot;activeCount&quot;:1,&quot;activeStandby&quot;:true,&quot;annotations&quot;:null,&quot;placement&quot;:null,&quot;resources&quot;:null},&quot;preserveFilesystemOnDelete&quot;:true}}
+    creationTimestamp: &quot;2024-10-23T16:03:08Z&quot;
+    finalizers:
+    - cephfilesystem.ceph.rook.io
+    generation: 2
+    name: myfs
+    namespace: rook-ceph
+    resourceVersion: &quot;1085330&quot;
+    uid: 3d660751-477b-4df5-be92-52bb0b3be3d1
+  spec:
+    dataPools:
+    - application: &quot;&quot;
+      erasureCoded:
+        codingChunks: 0
+        dataChunks: 0
+      failureDomain: host
+      mirroring: {}
+      name: replicated
+      quotas: {}
+      replicated:
+        size: 3
+      statusCheck:
+        mirror: {}
+    metadataPool:
+      application: &quot;&quot;
+      erasureCoded:
+        codingChunks: 0
+        dataChunks: 0
+      failureDomain: host
+      mirroring: {}
+      quotas: {}
+      replicated:
+        size: 3
+      statusCheck:
+        mirror: {}
+    metadataServer:
+      activeCount: 1
+      activeStandby: true
+      placement: {}
+      resources: {}
+    preserveFilesystemOnDelete: true
+    statusCheck:
+      mirror: {}
+  status:
+    observedGeneration: 2
+    phase: Ready
+kind: List
+metadata:
+  resourceVersion: &quot;&quot;
+</code></pre>
+<p>Finalement nous pouvons créer notre Storageclasse qui portera le nom de rook-cephfs et qui sera utiliser pour toute demande de volume </p>
+<p>Attention: tout type de demande du PVC devrai être de mode ReadWriteMany pour un type de FS</p>
+<pre><code>apiVersion: v1
+items:
+- allowVolumeExpansion: true
+  apiVersion: storage.k8s.io/v1
+  kind: StorageClass
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {&quot;allowVolumeExpansion&quot;:true,&quot;apiVersion&quot;:&quot;storage.k8s.io/v1&quot;,&quot;kind&quot;:&quot;StorageClass&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;rook-cephfs&quot;},&quot;mountOptions&quot;:null,&quot;parameters&quot;:{&quot;clusterID&quot;:&quot;rook-ceph&quot;,&quot;csi.storage.k8s.io/controller-expand-secret-name&quot;:&quot;rook-csi-cephfs-provisioner&quot;,&quot;csi.storage.k8s.io/controller-expand-secret-namespace&quot;:&quot;rook-ceph&quot;,&quot;csi.storage.k8s.io/node-stage-secret-name&quot;:&quot;rook-csi-cephfs-node&quot;,&quot;csi.storage.k8s.io/node-stage-secret-namespace&quot;:&quot;rook-ceph&quot;,&quot;csi.storage.k8s.io/provisioner-secret-name&quot;:&quot;rook-csi-cephfs-provisioner&quot;,&quot;csi.storage.k8s.io/provisioner-secret-namespace&quot;:&quot;rook-ceph&quot;,&quot;fsName&quot;:&quot;myfs&quot;,&quot;pool&quot;:&quot;myfs-replicated&quot;},&quot;provisioner&quot;:&quot;rook-ceph.cephfs.csi.ceph.com&quot;,&quot;reclaimPolicy&quot;:&quot;Delete&quot;}
+    creationTimestamp: &quot;2024-10-23T16:06:43Z&quot;
+    name: rook-cephfs
+    resourceVersion: &quot;518644&quot;
+    uid: 1a98809f-20c1-439e-aa5f-4bf2a34a4d5a
+  parameters:
+    clusterID: rook-ceph
+    csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+    csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+    csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+    csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+    csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+    csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+    fsName: myfs
+    pool: myfs-replicated
+  provisioner: rook-ceph.cephfs.csi.ceph.com
+  reclaimPolicy: Delete
+  volumeBindingMode: Immediate
+kind: List
+metadata:
+  resourceVersion: &quot;&quot;
+</code></pre>
+<h2 id="creation-dun-pvc">Création d'un PVC</h2>
+<p>Un exemple d'un PVC est comme suivant: </p>
+<pre><code>apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rbd-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: rook-cephfs
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../nfs/" class="btn btn-neutral float-left" title="NFS"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/HOUARIMouhssine/LAB.git" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../nfs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

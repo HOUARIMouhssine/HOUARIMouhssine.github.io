@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="HOUARI ABDELMOUHSSINE" /><link rel="canonical" href="https://doc.ahouari-tech.fr/doc/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="HOUARI ABDELMOUHSSINE" /><link rel="canonical" href="https://doc.ahouari-tech.fr/vagrant/" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Documentation - Documentation</title>
+    <title>Vagrant - Documentation</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Documentation";
-        var mkdocs_page_input_path = "doc.md";
-        var mkdocs_page_url = "/doc/";
+        var mkdocs_page_name = "Vagrant";
+        var mkdocs_page_input_path = "vagrant.md";
+        var mkdocs_page_url = "/vagrant/";
       </script>
     
     <!--[if lt IE 9]>
@@ -45,16 +45,8 @@
                 <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                 </li>
               </ul>
-              <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Documentation</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#source-de-lenvironnement">Source de l'environnement</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#entrer-dans-le-repertoire">Entrer dans le répertoire</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#creation-dun-service">Création d'un service</a>
-    </li>
-    </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../doc/">Documentation</a>
                 </li>
               </ul>
               <ul>
@@ -65,8 +57,16 @@
                 <li class="toctree-l1"><a class="reference internal" href="../vbox/">Virtualbox</a>
                 </li>
               </ul>
-              <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../vagrant/">Vagrant</a>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Vagrant</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#command-utiles">Command utiles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vagrantfile">VagrantFile</a>
+    </li>
+    </ul>
                 </li>
               </ul>
               <ul>
@@ -91,9 +91,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Documentation</li>
+      <li class="breadcrumb-item active">Vagrant</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/HOUARIMouhssine/LAB.git/edit/master/docs/doc.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/HOUARIMouhssine/LAB.git/edit/master/docs/vagrant.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -101,75 +101,72 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="welcome-to-mkdocsdocumentation">Welcome to MkDocs::Documentation</h1>
+                <h1 id="welcome-to-mkdocsvagrant">Welcome to MkDocs::Vagrant</h1>
 <p>Pour toute la documentation, rendre visite à  <a href="http://doc.5.196.93.233.nip.io/">mkdocs.org</a>.</p>
-<h4 id="source-de-lenvironnement">Source de l'environnement</h4>
-<pre><code>source /data/python/bin/activate
+<h4 id="installation">Installation</h4>
+<pre><code>sudo dnf install -y dnf-plugins-core
+sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
+sudo dnf -y install vagrant
 </code></pre>
-<h4 id="entrer-dans-le-repertoire">Entrer dans le répertoire</h4>
-<pre><code>cd /data/Documentation
-git fetch
-git init 
-git add .
-mkdocs gh-deploy -r https://github.com/HOUARIMouhssine/ahouari.github.io -b main
+<p>on pourra après voir sa version via 
+<code>vagrant --version</code></p>
+<h4 id="command-utiles">Command utiles</h4>
+<ul>
+<li><code>vagrant init</code> : Pour initier vagrant file.</li>
+<li><code>vagrant global-status</code> : Pour voir le status complet de tous les VMs crée si ils sont en mode running ou non.</li>
+<li><code>vagrant up &lt;Vagrantfile&gt;</code> : Pour mettre en tension et démarrer une VM auprès un fichier vagrant.</li>
+<li><code>vagrant  reload</code> : redémarrer une VM vagrant</li>
+<li><code>vagrant  halt</code> : stop une VM vagrant</li>
+<li><code>vagrant  suspend</code> : mettre une VM vagrant en mode suspende en gardant son état</li>
+<li><code>vagrant  destroy &lt;machine id&gt; -f</code>: supprimer une machine vagrant sans confirmation</li>
+<li><code>vagrant box list</code>: pour récupirer tous les OS et les box installés</li>
+</ul>
+<h3 id="vagrantfile">VagrantFile</h3>
+<pre><code>Vagrant.configure(&quot;2&quot;) do |config|
+  config.vm.box = &quot;almalinux/9&quot;
+  config.vm.hostname = &quot;ah100&quot;
+  config.vm.network :private_network, ip: &quot;192.168.0.10&quot;, netmask:&quot;255.255.252.0&quot;
+  config.vm.provider :virtualbox do |vb|
+    vb.customize [
+      &quot;modifyvm&quot;, :id,
+      &quot;--cpuexecutioncap&quot;, &quot;50&quot;,
+      &quot;--memory&quot;, &quot;2048&quot;,
+    ]
+  end
+end
 </code></pre>
-<h3 id="creation-dun-service">Création d'un service</h3>
-<p>Pour que l'url du doc soit accessible en temps réel ( ce qui veut dire sans sourcer l'environnement à chaque fois et lancer le mkdocs serve), j'ai crée un fichier bash dédier pour faire ça.</p>
-<pre><code>
-[root@ah200 Documentation]# cat permanent_running.sh 
-#!/bin/bash
-
-# Source your virtual environment
-
-source /data/python/bin/activate
-
-
-
-# Run mkdocs serve
-
-cd /data/Documentation &amp;&amp; mkdocs serve
-</code></pre>
-<p>Pour que cette partie soit permanente, j'ai crée un fichier daemon sous forme du service  : </p>
-<pre><code>[root@ah200 Documentation]# systemctl status mkdocs.service 
-
-● mkdocs.service - MKDocs Service
-
-     Loaded: loaded (/etc/systemd/system/mkdocs.service; disabled; preset: disabled)
-
-     Active: active (running) since Mon 2024-02-12 16:50:31 UTC; 6 days ago
-
-   Main PID: 902882 (permanent_runni)
-
-      Tasks: 8 (limit: 203086)
-
-     Memory: 33.5M
-
-        CPU: 12min 40.005s
-
-     CGroup: /system.slice/mkdocs.service
-
-             ├─902882 /bin/bash /data/Documentation/permanent_running.sh
-
-             └─902883 /data/python/bin/python /data/python/bin/mkdocs serve
-
-
-[root@ah200 Documentation]# cat /etc/systemd/system/mkdocs.service 
-[Unit]
-Description=MKDocs Service
-After=network.target
-[Service]
-Type=simple
-ExecStart=/bin/bash -c '/data/Documentation/permanent_running.sh'
-[Install]
-WantedBy=multi-user.target
-[root@ah200 Documentation]# 
+<p>Un autre example de mettre en place une VM almalinux9 avec une configuration ssh qui permet:</p>
+<ul>
+<li>changer la partie <strong>PermitRootLogin</strong> to <strong>YES</strong> . </li>
+<li>changer le mot de passe de l'utilisateur root .  </li>
+</ul>
+<pre><code>Vagrant.configure(&quot;2&quot;) do |config|
+  config.vm.box = &quot;almalinux/9&quot;
+  config.vm.hostname = &quot;ah101&quot;
+  config.vm.network :private_network, ip: &quot;192.168.0.11&quot;, netmask: &quot;255.255.252.0&quot;
+  config.vm.provider :virtualbox do |vb|
+    vb.customize [
+      &quot;modifyvm&quot;, :id,
+      &quot;--cpuexecutioncap&quot;, &quot;50&quot;,
+      &quot;--memory&quot;, &quot;2048&quot;,
+    ]
+  end
+  config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+    # Set root password to 'your_password'
+    echo 'root:your_password' | chpasswd
+    # Enable PermitRootLogin in /etc/ssh/sshd_config
+    sed -i 's/^#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+    # Restart ssh service
+    systemctl restart sshd
+  SHELL
+end
 </code></pre>
               
             </div>
           </div><footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
-        <a href=".." class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-        <a href="../dns/" class="btn btn-neutral float-right" title="DNS">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../vbox/" class="btn btn-neutral float-left" title="Virtualbox"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../nfs/" class="btn btn-neutral float-right" title="NFS">Next <span class="icon icon-circle-arrow-right"></span></a>
     </div>
 
   <hr/>
@@ -196,10 +193,10 @@ WantedBy=multi-user.target
         </span>
     
     
-      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../vbox/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../dns/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../nfs/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

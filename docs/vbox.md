@@ -4,8 +4,14 @@ Pour toute la documentation, rendre visite à  [mkdocs.org](http://doc.5.196.93.
 VboxManage est la partie CLI pour Oracle VM virtualbox, il permet de crée des interfaces réseaux, de les configurer, démarrer ou l'arreter
 Dans notre example, il sera utiliser pour créer une interface réseau sur le réseau local dont lequel on va écouter
 
+
+Pour spécifier le machine folder des VMs via VBoxManage 
+``
+VBoxManage setproperty machinefolder /data/virtualbox/VM
+``
 ## Création une inteface
 ```
+vboxmanage hostonlyif create
 VBoxManage hostonlyif ipconfig vboxnet0 --ip=192.168.0.1 --netmask=255.255.252.0
 ```
 Cette inteface fait partie de la zone dns **ahouari**
@@ -72,3 +78,16 @@ Pour supprimer l'image docker
 ```
 docker-compose -f /data/docker-compose/phpvbox.yaml down
 ```
+
+
+### Reset the password: 
+
+Si on veut récupérer le mot de passe de l'utilisateur admin; il faut se connecter sur le container du docker qui est phpvbox et renommer le fichier recovery.php-disabled vers recovery.php 
+
+
+Aprés il faut rédemmarer le service : `` vboxweb-service ``
+
+
+### Restart DHCP Server
+
+après avoir choisi le serveur dhcp via l'interface virtualbox, et des fois, il faut le rédemarrer pour prendre en compte le nouveau réseau , pour cela il faut lancer : `` VBoxManage dhcpserver restart  --interface=vboxnet1``

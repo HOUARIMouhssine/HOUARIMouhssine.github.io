@@ -48,16 +48,25 @@ zone "0.168.192.in-addr.arpa" {
 - les autres machines dans le réseau peuvent spécifier l'adresse ip de ce dns serveur afin de faire des requêtes DNS
 
 
-## Commands
+### Explication de fichier **/var/named/ahouari.db
+```
+$ORIGIN .
+$TTL 10800      ; 3 hours
+ahouari                 IN SOA  ah200.ahouari. admin.ah200.ahouari. (
+                                2013022757 ; serial
+                                3600       ; refresh (1 hour)
+                                3600       ; retry (1 hour)
+                                604800     ; expire (1 week)
+                                38400      ; minimum (10 hours 40 minutes)
+                                )
+                        NS      ah200.ahouari.
+$ORIGIN ahouari.
+ah200                   A       192.168.0.1
+ah201                   A       192.168.0.2
+ah100                   A       192.168.0.10
+ah101                   A       192.168.0.11
+ah102                   A       192.168.0.12
+```
+### Explication de fichier ** /var/named/0.168.192.db **
+``` 
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.

@@ -1,17 +1,7 @@
-# Welcome to MkDocs
+# Welcome to DevOps Diaries for Abdelmouhssine HOUARI 
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Cette documentation decrit tous ce que j'ai appris et tous ce qui concerne la partie DevOps, y a compris la partie kubernetes, Haproxy, DNS, CI/CD .. 
 
-## Commands
+Durant cette documentation , nous allons décrire tous ce qu'il faut afin d'apprendre et mettre en place des solutions DevOps
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.

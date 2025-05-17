@@ -1,7 +1,7 @@
 site_name: HOUARI Abdelmouhssine's Documentation
 site_name: Documentation
-site_url: http://doc.5.196.93.233.nip.io/
-site_description: Project documentation with Markdown.
+site_url: https://doc.ahouari-tech.fr 
+site_description: un Site web qui décrit tous les nouveautés du DevOps 
 site_author: HOUARI ABDELMOUHSSINE
 dev_addr: 192.168.0.1:8000
 repo_url: https://github.com/HOUARIMouhssine/LAB.git
@@ -23,6 +23,10 @@ nav:
   - Home: index.md
   - Documentation: doc.md
   - DNS: dns.md
-  - virtualbox: vbox.md
+  - Virtualbox: vbox.md
+  - Vagrant: vagrant.md 
+  - NFS: nfs.md 
+  - ROOK: rook-ceph.md 
     #extra_css:
     #- css/extra.css
+
